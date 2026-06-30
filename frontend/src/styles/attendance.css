@@ -1,0 +1,340 @@
+.attendance-page {
+  max-width: 900px;
+}
+
+.qr-ticket {
+  max-width: 340px;
+  margin: 0 auto;
+  padding: 1.15rem;
+  background: linear-gradient(160deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #dbeafe;
+  border-radius: 0.95rem;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.08);
+}
+
+.qr-ticket__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
+}
+
+.qr-ticket__brand {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #2563eb;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.qr-ticket__badge {
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.qr-ticket__event {
+  margin: 0 0 0.85rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.35;
+}
+
+.qr-ticket__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.qr-ticket__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px dashed #e5e7eb;
+}
+
+.qr-ticket__label {
+  color: #6b7280;
+  font-size: 0.78rem;
+}
+
+.qr-ticket__value {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #111827;
+  text-align: right;
+}
+
+.qr-ticket__value--ticket {
+  color: #2563eb;
+  font-family: monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+.qr-ticket__qr-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 0.85rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+}
+
+.qr-ticket__footer {
+  margin: 0.65rem 0 0;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.78rem;
+}
+
+.my-ticket-page__selector {
+  margin-bottom: 1.5rem;
+}
+
+.my-ticket-page__selector label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.my-ticket-page__selector select {
+  width: 100%;
+  max-width: 340px;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background: #ffffff;
+}
+
+.my-ticket-page__ticket-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.my-ticket-page__checked-in {
+  padding: 0.65rem 1rem;
+  border-radius: 0.75rem;
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 600;
+}
+
+.qr-scanner {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.qr-scanner__loading {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.qr-scanner__region {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.scan-attendance-page__scanner-wrap {
+  padding: 1rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+}
+
+.scan-attendance-page__processing {
+  text-align: center;
+  color: #2563eb;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.scan-attendance-page__hint {
+  margin: 1rem 0 0;
+  text-align: center;
+  color: #6b7280;
+}
+
+.scan-result {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.scan-result--success {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.scan-result--warning {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+}
+
+.scan-result--error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+
+.scan-result__icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.scan-result__title {
+  margin: 0 0 1.25rem;
+  font-size: 1.35rem;
+}
+
+.scan-result__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.scan-result__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.scan-result__row span {
+  color: #6b7280;
+}
+
+.scan-result__btn {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: 0.75rem;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.event-participants-page__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.event-participants-page__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.85rem;
+}
+
+.event-participants-page__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.event-participants-page__info strong {
+  font-size: 1rem;
+}
+
+.event-participants-page__ticket {
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-family: monospace;
+}
+
+.event-participants-page__status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.event-participants-page__badge {
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.event-participants-page__badge--present {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.event-participants-page__badge--absent {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.event-participants-page__time {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.reports-page__export-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.reports-page__table-wrap {
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+}
+
+.reports-page__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reports-page__table th,
+.reports-page__table td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 0.9rem;
+}
+
+.reports-page__table th {
+  background: #f9fafb;
+  font-weight: 600;
+  color: #374151;
+}
+
+.event-card__btn--participants {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+@media (max-width: 640px) {
+  .event-participants-page__row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .event-participants-page__status {
+    align-items: flex-start;
+  }
+}
