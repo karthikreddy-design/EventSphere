@@ -18,6 +18,7 @@ import { PageSkeleton } from "./components/Skeleton";
 
 import Login from "./pages/common/Login";
 import Register from "./pages/common/Register";
+import AuthCallback from "./pages/common/AuthCallback";
 import Profile from "./pages/common/Profile";
 import Notifications from "./pages/common/Notifications";
 
@@ -48,6 +49,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/auth/callback" element={<AuthCallback />} />
 
         <Route element={<ProtectedRoute />}>
           <Route element={<AdminRoute />}>

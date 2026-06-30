@@ -59,6 +59,19 @@ function Login() {
         navigate("/participant-dashboard", { replace: true });
       }
     } catch (err) {
+      const message = err.message?.toLowerCase() || "";
+
+      if (message.includes("verify your email") || message.includes("email not confirmed")) {
+        toast.error(
+          "Please verify your email with the OTP from registration before logging in."
+        );
+        navigate("/register", {
+          replace: true,
+          state: { email: emailValue, step: "otp" },
+        });
+        return;
+      }
+
       toast.error(err.message || "Login failed");
     } finally {
       setLoading(false);
@@ -85,7 +98,7 @@ function Login() {
               name="email"
               type="email"
               autoComplete="email"
-              placeholder="you@example.com"
+              placeholder="you@gmail.com"
               className="login-form__input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
