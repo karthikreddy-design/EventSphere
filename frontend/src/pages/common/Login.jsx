@@ -98,7 +98,7 @@ function Login() {
               name="email"
               type="email"
               autoComplete="email"
-              placeholder="you@gmail.com"
+              placeholder="you@example.com"
               className="login-form__input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
