@@ -59,29 +59,56 @@ The app uses **Supabase Auth** for login, **PostgreSQL** for data, **Storage** f
 ## Folder Structure
 
 ```
+frontend/src
+│
+├── assets
+├── components
+│   ├── Navbar.jsx
+│   ├── Sidebar.jsx
+│   ├── DashboardCard.jsx
+│   ├── EventCard.jsx
+│   ├── QRCodeTicket.jsx
+│   └── QRScanner.jsx
+│
+├── context
+├── hooks
+├── layouts
+│   ├── AdminLayout.jsx
+│   └── ParticipantLayout.jsx
+│
+├── pages
+│   ├── admin
+│   ├── participant
+│   └── common
+│
+├── routes
+├── services
+│   ├── authService.js
+│   ├── eventService.js
+│   ├── registrationService.js
+│   ├── attendanceService.js
+│   ├── profileService.js
+│   └── notificationService.js
+│
+├── styles
+├── supabase
+├── utils
+└── App.jsx
+```
+
+Additional supporting files (e.g. `EventForm.jsx`, `Icon.jsx`, `analyticsService.js`, `reportService.js`) live alongside these core modules in the same folders.
+
+```
 EventSphere/
-├── README.md                 # Project documentation
+├── README.md
 ├── .gitignore
-├── frontend/
-│   ├── public/               # Static assets (favicon)
-│   ├── src/
-│   │   ├── assets/           # Logo and images
-│   │   ├── components/       # Reusable UI (Navbar, Sidebar, cards, forms)
-│   │   ├── hooks/            # Custom React hooks
-│   │   ├── layouts/          # AdminLayout, ParticipantLayout
-│   │   ├── pages/
-│   │   │   ├── admin/        # Admin-only pages
-│   │   │   ├── participant/  # Participant-only pages
-│   │   │   └── common/       # Login, Register, Profile, Notifications
-│   │   ├── routes/           # Protected, Admin, Participant route guards
-│   │   ├── services/         # Supabase API layer
-│   │   ├── styles/           # Page and component CSS
-│   │   ├── supabase/         # Supabase client config
-│   │   └── utils/            # Helpers, cache, validation, charts
-│   ├── .env.example          # Environment variable template
-│   ├── vercel.json           # SPA routing for Vercel
-│   ├── package.json
-│   └── vite.config.js
+└── frontend/
+    ├── public/
+    ├── src/                    # Structure above
+    ├── .env.example
+    ├── vercel.json
+    ├── package.json
+    └── vite.config.js
 ```
 
 ---
