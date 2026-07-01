@@ -601,10 +601,41 @@ a.navbar__profile {
   }
 
   .dashboard-page__grid,
-  .dashboard-page__grid--participant,
   .dashboard-page__grid--admin {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.65rem;
+  }
+
+  .dashboard-page__grid--participant {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1rem;
+    min-height: calc(100dvh - 10.5rem);
+    align-content: stretch;
+  }
+
+  .dashboard-page__grid--participant .dashboard-card {
+    padding: 1.15rem 1rem;
+    min-height: 100%;
+  }
+
+  .dashboard-page__grid--participant .dashboard-card__header {
+    gap: 0.6rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .dashboard-page__grid--participant .dashboard-card__icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.75rem;
+  }
+
+  .dashboard-page__grid--participant .dashboard-card__title {
+    font-size: 0.88rem;
+  }
+
+  .dashboard-page__grid--participant .dashboard-card__value {
+    font-size: 2rem;
   }
 
   .dashboard-card {
@@ -628,7 +659,6 @@ a.navbar__profile {
 
 @media (max-width: 380px) {
   .dashboard-page__grid,
-  .dashboard-page__grid--participant,
   .dashboard-page__grid--admin {
     grid-template-columns: 1fr;
   }

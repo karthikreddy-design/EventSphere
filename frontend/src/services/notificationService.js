@@ -108,6 +108,21 @@ const formatEventDetails = (event) => {
   return `Date: ${formatEventDate(event.event_date)}\nVenue: ${event.location || "—"}`;
 };
 
+const getAdminRecipientIds = async (event) => {
+  if (event?.created_by) {
+    return [event.created_by];
+  }
+
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("id")
+    .eq("role", "admin");
+
+  if (error) throw error;
+
+  return (data || []).map((row) => row.id);
+};
+
 export const createNotification = async ({
   userId,
   title,
@@ -244,38 +259,53 @@ export const notifyRegistrationConfirmed = async (userId, event) => {
 };
 
 export const notifyAdminNewRegistration = async (event, participantUserId) => {
-  if (!event?.created_by || event.created_by === participantUserId) return;
+  const recipients = (await getAdminRecipientIds(event)).filter(
+    (userId) => userId !== participantUserId
+  );
+
+  if (!recipients.length) return;
 
   const participantName = await getUserName(participantUserId);
 
-  await createNotification({
-    userId: event.created_by,
-    title: "New Registration",
-    message: `${participantName} registered for "${event.title}".\n\nReview participants to manage attendance and exports.`,
-    type: NOTIFICATION_TYPES.NEW_REGISTRATION,
-    eventId: event.id,
-  });
+  await Promise.all(
+    recipients.map((userId) =>
+      createNotification({
+        userId,
+        title: "New Registration",
+        message: `${participantName} registered for "${event.title}".\n\nReview participants to manage attendance and exports.`,
+        type: NOTIFICATION_TYPES.NEW_REGISTRATION,
+        eventId: event.id,
+      })
+    )
+  );
 };
 
 export const notifyAdminEventCapacityFull = async (event, registeredCount) => {
-  if (!event?.created_by || !event.max_participants) return;
-  if (registeredCount < event.max_participants) return;
+  if (!event?.max_participants || registeredCount < event.max_participants) {
+    return;
+  }
 
-  const alreadySent = await hasNotification(
-    event.created_by,
-    NOTIFICATION_TYPES.EVENT_CAPACITY_FULL,
-    event.id
+  const recipients = await getAdminRecipientIds(event);
+
+  await Promise.all(
+    recipients.map(async (userId) => {
+      const alreadySent = await hasNotification(
+        userId,
+        NOTIFICATION_TYPES.EVENT_CAPACITY_FULL,
+        event.id
+      );
+
+      if (alreadySent) return;
+
+      await createNotification({
+        userId,
+        title: "Event at Full Capacity",
+        message: `"${event.title}" has reached its maximum capacity (${event.max_participants} participants).`,
+        type: NOTIFICATION_TYPES.EVENT_CAPACITY_FULL,
+        eventId: event.id,
+      });
+    })
   );
-
-  if (alreadySent) return;
-
-  await createNotification({
-    userId: event.created_by,
-    title: "Event at Full Capacity",
-    message: `"${event.title}" has reached its maximum capacity (${event.max_participants} participants).`,
-    type: NOTIFICATION_TYPES.EVENT_CAPACITY_FULL,
-    eventId: event.id,
-  });
 };
 
 export const notifyParticipantAttendanceConfirmed = async (userId, event) => {
@@ -294,17 +324,23 @@ export const notifyAdminAttendanceCheckIn = async (
   event,
   participantUserId
 ) => {
-  if (!event?.created_by) return;
+  const recipients = await getAdminRecipientIds(event);
+
+  if (!recipients.length) return;
 
   const participantName = await getUserName(participantUserId);
 
-  await createNotification({
-    userId: event.created_by,
-    title: "Attendance Recorded",
-    message: `${participantName} checked in for "${event.title}".`,
-    type: NOTIFICATION_TYPES.ATTENDANCE_CHECKIN,
-    eventId: event.id,
-  });
+  await Promise.all(
+    recipients.map((userId) =>
+      createNotification({
+        userId,
+        title: "Attendance Recorded",
+        message: `${participantName} checked in for "${event.title}".`,
+        type: NOTIFICATION_TYPES.ATTENDANCE_CHECKIN,
+        eventId: event.id,
+      })
+    )
+  );
 };
 
 export const notifyEventUpdated = async (event) => {
