@@ -1,5 +1,4 @@
 import supabase from "../supabase/supabase";
-import { getAuthEmailRedirectUrl } from "../utils/siteUrl";
 
 const isExistingConfirmedUser = (data) =>
   Boolean(
@@ -22,7 +21,6 @@ export const registerUser = async (
         name,
         role,
       },
-      emailRedirectTo: getAuthEmailRedirectUrl(),
     },
   });
 
@@ -43,47 +41,13 @@ export const registerUser = async (
   return data;
 };
 
-export const verifySignupOtp = async (email, token) => {
-  const { data, error } = await supabase.auth.verifyOtp({
-    email,
-    token,
-    type: "signup",
-  });
-
-  if (error) throw error;
-
-  return data;
-};
-
-export const resendSignupOtp = async (email) => {
-  const { error } = await supabase.auth.resend({
-    type: "signup",
-    email,
-    options: {
-      emailRedirectTo: getAuthEmailRedirectUrl(),
-    },
-  });
-
-  if (error) throw error;
-};
-
 export const loginUser = async (email, password) => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
-  if (error) {
-    const message = error.message?.toLowerCase() || "";
-
-    if (message.includes("email not confirmed")) {
-      throw new Error(
-        "Please verify your email with the OTP sent during registration before logging in."
-      );
-    }
-
-    throw error;
-  }
+  if (error) throw error;
 
   return data;
 };

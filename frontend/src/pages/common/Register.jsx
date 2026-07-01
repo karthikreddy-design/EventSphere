@@ -1,35 +1,20 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import {
-  registerUser,
-  resendSignupOtp,
-  verifySignupOtp,
-  logoutUser,
-} from "../../services/authService";
+import logo from "../../assets/eventsphere-logo.png";
+import { registerUser, logoutUser } from "../../services/authService";
 import { validateRegistrationEmail } from "../../utils/emailValidation";
+import "../../styles/auth.css";
 
 function Register() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const resumeEmail = location.state?.email?.trim().toLowerCase() || "";
-  const resumeStep = location.state?.step === "otp" && resumeEmail ? "otp" : "form";
 
-  const [step, setStep] = useState(resumeStep);
   const [form, setForm] = useState({
     name: "",
-    email: resumeEmail,
+    email: "",
     password: "",
   });
-  const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
-  const [resending, setResending] = useState(false);
-
-  useEffect(() => {
-    if (resumeStep === "otp" && resumeEmail) {
-      toast.info("Enter the OTP sent to your email to finish registration.");
-    }
-  }, [resumeEmail, resumeStep]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,9 +47,9 @@ function Register() {
 
     try {
       await registerUser(nameValue, emailCheck.email, passwordValue);
-      setForm((prev) => ({ ...prev, email: emailCheck.email }));
-      setStep("otp");
-      toast.success("OTP sent to your email. Enter it below to complete registration.");
+      await logoutUser();
+      toast.success("Registration successful! You can now log in.");
+      navigate("/", { replace: true });
     } catch (err) {
       const message = err.message?.toLowerCase() || "";
 
@@ -82,129 +67,80 @@ function Register() {
     }
   };
 
-  const handleVerifyOtp = async (e) => {
-    e.preventDefault();
+  return (
+    <div className="login-page">
+      <div className="login-card">
+        <div className="login-card__brand">
+          <img src={logo} alt="EventSphere" className="login-card__logo" />
+          <span className="login-card__name">EventSphere</span>
+          <h1 className="login-card__title">Create account</h1>
+          <p className="login-card__subtitle">
+            Register with your real email to join EventSphere
+          </p>
+        </div>
 
-    const code = otp.trim();
+        <form className="login-form" onSubmit={handleRegister}>
+          <div className="login-form__field">
+            <label className="login-form__label" htmlFor="register-name">
+              Full name
+            </label>
+            <input
+              id="register-name"
+              name="name"
+              type="text"
+              autoComplete="name"
+              placeholder="Your name"
+              className="login-form__input"
+              value={form.name}
+              onChange={handleChange}
+              disabled={loading}
+            />
+          </div>
 
-    if (!/^\d{6}$/.test(code)) {
-      toast.error("Please enter the 6-digit OTP from your email");
-      return;
-    }
+          <div className="login-form__field">
+            <label className="login-form__label" htmlFor="register-email">
+              Email
+            </label>
+            <input
+              id="register-email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              placeholder="you@gmail.com"
+              className="login-form__input"
+              value={form.email}
+              onChange={handleChange}
+              disabled={loading}
+            />
+          </div>
 
-    setLoading(true);
+          <div className="login-form__field">
+            <label className="login-form__label" htmlFor="register-password">
+              Password
+            </label>
+            <input
+              id="register-password"
+              name="password"
+              type="password"
+              autoComplete="new-password"
+              placeholder="Create a password"
+              className="login-form__input"
+              value={form.password}
+              onChange={handleChange}
+              disabled={loading}
+            />
+          </div>
 
-    try {
-      await verifySignupOtp(form.email, code);
-      await logoutUser();
-      toast.success("Registration confirmed! You can now log in.");
-      navigate("/", { replace: true });
-    } catch (err) {
-      toast.error(err.message || "Invalid OTP. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+          <button type="submit" className="login-form__submit" disabled={loading}>
+            {loading ? "Registering..." : "Register"}
+          </button>
+        </form>
 
-  const handleResendOtp = async () => {
-    setResending(true);
-
-    try {
-      await resendSignupOtp(form.email);
-      toast.success("A new OTP has been sent to your email");
-    } catch (err) {
-      toast.error(err.message || "Could not resend OTP");
-    } finally {
-      setResending(false);
-    }
-  };
-
-  if (step === "otp") {
-    return (
-      <form onSubmit={handleVerifyOtp}>
-        <h1>Verify your email</h1>
-        <p>Enter the 6-digit OTP sent to {form.email}</p>
-
-        <input
-          name="otp"
-          type="text"
-          inputMode="numeric"
-          autoComplete="one-time-code"
-          placeholder="6-digit OTP"
-          value={otp}
-          onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
-          disabled={loading}
-          maxLength={6}
-        />
-
-        <button type="submit" disabled={loading}>
-          {loading ? "Verifying..." : "Verify & complete registration"}
-        </button>
-
-        <button type="button" onClick={handleResendOtp} disabled={loading || resending}>
-          {resending ? "Resending..." : "Resend OTP"}
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            setStep("form");
-            setOtp("");
-          }}
-          disabled={loading}
-        >
-          Change email
-        </button>
-
-        <p>
+        <p className="login-card__footer">
           Already have an account? <Link to="/">Login</Link>
         </p>
-      </form>
-    );
-  }
-
-  return (
-    <form onSubmit={handleRegister}>
-      <h1>Register</h1>
-
-      <input
-        name="name"
-        type="text"
-        autoComplete="name"
-        placeholder="Name"
-        value={form.name}
-        onChange={handleChange}
-        disabled={loading}
-      />
-
-      <input
-        name="email"
-        type="email"
-        autoComplete="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={handleChange}
-        disabled={loading}
-      />
-
-      <input
-        name="password"
-        type="password"
-        autoComplete="new-password"
-        placeholder="Password"
-        value={form.password}
-        onChange={handleChange}
-        disabled={loading}
-      />
-
-      <button type="submit" disabled={loading}>
-        {loading ? "Sending OTP..." : "Register"}
-      </button>
-
-      <p>
-        Already have an account? <Link to="/">Login</Link>
-      </p>
-    </form>
+      </div>
+    </div>
   );
 }
 
