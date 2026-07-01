@@ -1,3 +1,9 @@
+.participants-page .events-page__create-btn {
+  padding: 0.5rem 0.85rem;
+  font-size: 0.82rem;
+  border-radius: 0.6rem;
+}
+
 .participants-page__stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -242,7 +248,25 @@
 
 @media (max-width: 768px) {
   .participants-page__stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .participants-page__stat {
+    padding: 0.65rem 0.5rem;
+  }
+
+  .participants-page__stat-label {
+    font-size: 0.65rem;
+  }
+
+  .participants-page__stat-value {
+    font-size: 1.1rem;
+  }
+
+  .participants-page__table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .participants-modal__profile-grid {
@@ -252,5 +276,11 @@
   .participants-page__table th:nth-child(2),
   .participants-page__table td:nth-child(2) {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .participants-page__stats {
+    grid-template-columns: 1fr;
   }
 }

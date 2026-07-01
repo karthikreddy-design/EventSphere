@@ -8,13 +8,18 @@
 .dashboard-layout__main {
   flex: 1;
   min-width: 0;
+  min-height: 0;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .dashboard-layout__content {
   flex: 1;
-  padding: 1.5rem;
+  min-height: 0;
+  padding: 1rem 1.25rem;
+  overflow-y: auto;
 }
 
 .sidebar-overlay {
@@ -189,7 +194,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem 1.5rem;
+  padding: 0.75rem 1.25rem;
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
   position: sticky;
@@ -225,12 +230,6 @@
   background: #f3f4f6;
 }
 
-.navbar__welcome {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
 .navbar__icon-btn {
   display: inline-flex;
   align-items: center;
@@ -238,6 +237,57 @@
   padding: 0.5rem 0.75rem;
   border-radius: 0.75rem;
   font-size: 0.95rem;
+  position: relative;
+  min-height: 2.75rem;
+}
+
+a.navbar__icon-btn {
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar__badge {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.15rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.1rem;
+  height: 1.1rem;
+  padding: 0 0.3rem;
+  border-radius: 999px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1;
+  border: 2px solid #ffffff;
+}
+
+.navbar__welcome {
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.navbar__welcome-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #6b7280;
+  line-height: 1.2;
+}
+
+.navbar__welcome-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .navbar__profile {
@@ -262,25 +312,25 @@ a.navbar__profile {
 }
 
 .dashboard-page__header {
-  margin-bottom: 1.75rem;
+  margin-bottom: 0.85rem;
 }
 
 .dashboard-page__title {
-  margin: 0 0 0.35rem;
-  font-size: 1.75rem;
+  margin: 0 0 0.15rem;
+  font-size: 1.35rem;
   font-weight: 700;
 }
 
 .dashboard-page__subtitle {
   margin: 0;
   color: #6b7280;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
 }
 
 .dashboard-page__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.75rem;
 }
 
 .dashboard-page__grid--admin .dashboard-card:nth-child(1) .dashboard-card__icon {
@@ -316,32 +366,32 @@ a.navbar__profile {
 }
 
 .dashboard-page__grid--participant {
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.15rem;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75rem;
 }
 
 .dashboard-page__grid--participant .dashboard-card {
-  padding: 1.2rem 1.25rem;
-  min-height: 118px;
+  padding: 0.85rem;
+  min-height: 84px;
 }
 
 .dashboard-page__grid--participant .dashboard-card__header {
-  gap: 0.6rem;
-  margin-bottom: 0.75rem;
+  gap: 0.45rem;
+  margin-bottom: 0.45rem;
 }
 
 .dashboard-page__grid--participant .dashboard-card__icon {
-  width: 2.35rem;
-  height: 2.35rem;
-  border-radius: 0.65rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.6rem;
 }
 
 .dashboard-page__grid--participant .dashboard-card__title {
-  font-size: 0.88rem;
+  font-size: 0.8rem;
 }
 
 .dashboard-page__grid--participant .dashboard-card__value {
-  font-size: 1.75rem;
+  font-size: 1.25rem;
 }
 
 .dashboard-page__grid--admin .dashboard-card:nth-child(5) .dashboard-card__icon {
@@ -350,27 +400,29 @@ a.navbar__profile {
 
 .dashboard-card {
   background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.85rem;
-  padding: 1rem;
-  min-height: 96px;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  border: 1px solid #e8edf3;
+  border-radius: 0.75rem;
+  padding: 0.85rem;
+  min-height: 84px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.dashboard-card:hover {
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .dashboard-card:hover {
+    border-color: #dbeafe;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.07);
+  }
 }
 
 .dashboard-card__header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.65rem;
+  gap: 0.4rem;
+  margin-bottom: 0.45rem;
 }
 
 .dashboard-card__icon {
@@ -395,30 +447,193 @@ a.navbar__profile {
 
 .dashboard-card__value {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #111827;
   line-height: 1.2;
 }
 
-@media (max-width: 900px) {
+.sidebar__close {
+  display: none;
+  position: absolute;
+  top: 0.85rem;
+  right: 0.75rem;
+  z-index: 2;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f9fafb;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sidebar__close:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.dashboard-page,
+.events-page,
+.participants-page,
+.reports-page,
+.notifications-page,
+.profile-page,
+.analytics-dashboard,
+.event-details-page,
+.my-events-page,
+.browse-events-page {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (max-width: 1024px) {
   .dashboard-page__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .dashboard-page__grid--participant {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard-layout__content {
+    padding: 0.85rem 1rem;
+    padding-bottom: max(0.85rem, env(safe-area-inset-bottom));
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .navbar {
+    padding: 0.65rem 1rem;
+    padding-top: max(0.65rem, env(safe-area-inset-top));
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    gap: 0.65rem;
+  }
+
+  .navbar__left,
+  .navbar__right {
+    gap: 0.5rem;
+  }
+
+  .navbar__label {
+    display: none;
+  }
+
+  .navbar__icon-btn {
+    padding: 0.45rem;
+    min-width: 2.75rem;
+    justify-content: center;
+  }
+
+  .navbar__badge {
+    top: 0.1rem;
+    right: 0.05rem;
+  }
+
+  .navbar__welcome-label {
+    display: none;
+  }
+
+  .navbar__welcome-name {
+    font-size: 0.9rem;
+    max-width: 9.5rem;
+  }
+
+  .dashboard-page__title,
+  .events-page__title,
+  .participants-page__title,
+  .reports-page__title,
+  .notifications-page__title,
+  .profile-page__title {
+    font-size: 1.2rem;
+  }
+
+  .dashboard-page__subtitle,
+  .events-page__subtitle,
+  .participants-page__subtitle {
+    font-size: 0.82rem;
   }
 
   .sidebar {
     position: fixed;
     left: 0;
     top: 0;
+    width: min(280px, 88vw);
+    height: 100dvh;
+    min-height: 100dvh;
     transform: translateX(-100%);
     transition: transform 0.25s ease;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-bottom: env(safe-area-inset-bottom);
   }
 
   .sidebar--open {
     transform: translateX(0);
   }
 
+  .sidebar__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sidebar__brand {
+    padding-right: 2.75rem;
+  }
+
   .navbar__menu-btn {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-layout__content {
+    padding: 0.75rem 0.85rem;
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  .dashboard-page__grid,
+  .dashboard-page__grid--participant,
+  .dashboard-page__grid--admin {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .dashboard-card {
+    padding: 0.75rem;
+    min-height: 76px;
+  }
+
+  .dashboard-card__value {
+    font-size: 1.1rem;
+  }
+
+  .navbar__welcome-name {
+    max-width: 7.5rem;
+  }
+
+  .navbar__avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .dashboard-page__grid,
+  .dashboard-page__grid--participant,
+  .dashboard-page__grid--admin {
+    grid-template-columns: 1fr;
+  }
+
+  .navbar__welcome-name {
+    max-width: 5.5rem;
   }
 }

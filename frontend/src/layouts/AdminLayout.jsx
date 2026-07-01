@@ -4,12 +4,15 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import supabase from "../supabase/supabase";
 import { useNotificationBadge } from "../hooks/useNotificationBadge";
+import { useDashboardShell } from "../hooks/useDashboardShell";
 import "../styles/dashboard.css";
 
 function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [userName, setUserName] = useState("Admin");
   const { unreadCount } = useNotificationBadge("admin");
+
+  useDashboardShell(sidebarOpen, setSidebarOpen);
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -44,6 +47,7 @@ function AdminLayout() {
       <div className="dashboard-layout__main">
         <Navbar
           userName={userName}
+          sidebarOpen={sidebarOpen}
           onMenuToggle={() => setSidebarOpen((open) => !open)}
           notificationsPath="/admin/notifications"
           profilePath="/admin/profile"

@@ -31,7 +31,7 @@ function ParticipantEventCard({ event, isRegistered, onRegister, registering }) 
             />
           ) : (
             <div className="participant-event-card__image-placeholder">
-              <Icon name="camera" size={40} />
+              <Icon name="camera" size={28} />
             </div>
           )}
         </div>
@@ -44,11 +44,11 @@ function ParticipantEventCard({ event, isRegistered, onRegister, registering }) 
 
           <div className="participant-event-card__meta">
             <p>
-              <Icon name="calendar" size={16} />
+              <Icon name="calendar" size={14} />
               <span>{formatDate(event.event_date)}</span>
             </p>
             <p>
-              <Icon name="location" size={16} />
+              <Icon name="location" size={14} />
               <span>{event.location || "—"}</span>
             </p>
           </div>

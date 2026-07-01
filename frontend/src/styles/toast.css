@@ -1,6 +1,17 @@
 :root {
-  --toastify-toast-width: 320px;
+  --toastify-toast-width: min(320px, calc(100vw - 1.5rem));
   --toastify-color-progress-light: #2563eb;
+}
+
+@media (max-width: 480px) {
+  :root {
+    --toastify-toast-width: calc(100vw - 1.25rem);
+  }
+
+  .Toastify__toast-container--top-right {
+    right: max(0.5rem, env(safe-area-inset-right));
+    top: max(0.65rem, env(safe-area-inset-top));
+  }
 }
 
 .Toastify__toast {

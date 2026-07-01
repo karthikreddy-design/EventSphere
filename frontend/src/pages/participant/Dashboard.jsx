@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DashboardCard from "../../components/DashboardCard";
+import { CardSkeleton } from "../../components/Skeleton";
 import { getMyRegistrationStats } from "../../services/registrationService";
 
 const participantCards = [
@@ -50,26 +51,25 @@ function Dashboard() {
         <p className="dashboard-page__subtitle">Your events and tickets at a glance</p>
       </header>
 
-      <div className="dashboard-page__grid dashboard-page__grid--participant">
-        {participantCards.map((card) => {
-          const rawValue = stats[card.key];
-          const displayValue =
-            loading
-              ? "..."
-              : card.format
-                ? card.format(rawValue)
-                : rawValue;
+      {loading ? (
+        <CardSkeleton count={4} />
+      ) : (
+        <div className="dashboard-page__grid dashboard-page__grid--participant">
+          {participantCards.map((card) => {
+            const rawValue = stats[card.key];
+            const displayValue = card.format ? card.format(rawValue) : rawValue;
 
-          return (
-            <DashboardCard
-              key={card.title}
-              title={card.title}
-              value={displayValue}
-              icon={card.icon}
-            />
-          );
-        })}
-      </div>
+            return (
+              <DashboardCard
+                key={card.title}
+                title={card.title}
+                value={displayValue}
+                icon={card.icon}
+              />
+            );
+          })}
+        </div>
+      )}
     </section>
   );
 }

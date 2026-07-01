@@ -61,7 +61,20 @@ function Sidebar({ role, isOpen, onClose }) {
         aria-hidden="true"
       />
 
-      <aside className={`sidebar ${isOpen ? "sidebar--open" : ""}`}>
+      <aside
+        id="dashboard-sidebar"
+        className={`sidebar ${isOpen ? "sidebar--open" : ""}`}
+        aria-label="Main navigation"
+      >
+        <button
+          type="button"
+          className="sidebar__close"
+          onClick={onClose}
+          aria-label="Close navigation menu"
+        >
+          ×
+        </button>
+
         <div className="sidebar__brand">
           <div className="sidebar__logo-badge">
             <img src={logo} alt="" className="sidebar__logo-icon" aria-hidden="true" />

@@ -20,8 +20,10 @@ const baseTicks = {
   color: CHART_COLORS.tick,
   font: baseFont,
   padding: 6,
-  maxRotation: 0,
+  maxRotation: 45,
+  minRotation: 0,
   autoSkip: true,
+  maxTicksLimit: 6,
 };
 
 const baseGrid = {

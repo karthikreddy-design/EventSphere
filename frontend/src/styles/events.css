@@ -1,20 +1,27 @@
+.events-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
 .events-page__header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 0.75rem;
+  margin-bottom: 0;
 }
 
 .events-page__title {
-  margin: 0 0 0.35rem;
-  font-size: 1.75rem;
+  margin: 0 0 0.15rem;
+  font-size: 1.35rem;
   font-weight: 700;
 }
 
 .events-page__subtitle {
   margin: 0;
   color: #6b7280;
+  font-size: 0.85rem;
 }
 
 .events-page__create-btn {
@@ -39,17 +46,17 @@
 .events-page__toolbar {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+  margin-bottom: 0;
 }
 
 .events-page__search {
   flex: 1;
-  min-width: 220px;
+  min-width: 200px;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.65rem 0.85rem;
+  gap: 0.45rem;
+  padding: 0.45rem 0.7rem;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 0.75rem;
@@ -63,16 +70,20 @@
 }
 
 .events-page__toolbar select {
-  padding: 0.65rem 0.85rem;
+  padding: 0.45rem 0.7rem;
   border: 1px solid #e5e7eb;
-  border-radius: 0.75rem;
+  border-radius: 0.65rem;
   background: #ffffff;
+  font-size: 0.85rem;
 }
 
 .events-page__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
+  flex: 1;
+  min-height: 0;
+  align-content: start;
 }
 
 .events-page__loading,
@@ -112,7 +123,7 @@
 }
 
 .event-card__image-wrap {
-  height: 140px;
+  height: 112px;
   background: #f3f4f6;
 }
 
@@ -131,31 +142,46 @@
 }
 
 .event-card__body {
-  padding: 1rem;
+  padding: 0.85rem 0.9rem 0.9rem;
 }
 
 .event-card__title {
-  margin: 0 0 0.75rem;
-  font-size: 1.05rem;
-  line-height: 1.35;
+  margin: 0 0 0.55rem;
+  font-size: 1rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .event-card__meta {
   display: grid;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.4rem 0.65rem;
+  margin-bottom: 0.7rem;
+  font-size: 0.82rem;
 }
 
 .event-card__meta p {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.05rem;
+  min-width: 0;
+}
+
+.event-card__meta p span {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  line-height: 1.35;
 }
 
 .event-card__meta strong {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -164,9 +190,9 @@
 .event-card__status {
   display: inline-block;
   width: fit-content;
-  padding: 0.15rem 0.45rem;
+  padding: 0.12rem 0.45rem;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
 }
 
@@ -192,25 +218,30 @@
 
 .event-card__actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-wrap: nowrap;
+  gap: 0.45rem;
 }
 
 .event-card__btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.35rem;
+  gap: 0.3rem;
   flex: 1;
   min-width: 0;
-  padding: 0.5rem 0.65rem;
-  border-radius: 0.55rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.5rem;
   border: none;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 600;
+}
+
+.event-card__btn--participants {
+  background: #f0fdf4;
+  color: #15803d;
 }
 
 .event-card__btn--edit {
@@ -348,7 +379,51 @@
     flex-direction: column;
   }
 
+  .events-page__toolbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .events-page__search {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+
+  .events-page__toolbar select {
+    width: 100%;
+  }
+
+  .events-page__grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
   .event-form__grid {
     grid-template-columns: 1fr;
+  }
+
+  .event-card__actions {
+    flex-wrap: wrap;
+  }
+
+  .event-card__btn {
+    flex: 1 1 calc(50% - 0.2rem);
+    min-width: calc(50% - 0.2rem);
+  }
+
+  .event-card__btn--delete {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .events-page__toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .event-card__btn {
+    flex: 1 1 100%;
+    min-width: 100%;
   }
 }

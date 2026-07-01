@@ -6,7 +6,7 @@ function EventCard({ event, onDelete }) {
     if (!dateStr) return "—";
     return new Date(dateStr).toLocaleDateString("en-GB", {
       day: "numeric",
-      month: "long",
+      month: "short",
       year: "numeric",
     });
   };
@@ -18,7 +18,7 @@ function EventCard({ event, onDelete }) {
           <img src={event.image_url} alt={event.title} className="event-card__image" loading="lazy" />
         ) : (
           <div className="event-card__image-placeholder">
-            <Icon name="camera" size={32} />
+            <Icon name="camera" size={28} />
           </div>
         )}
       </div>

@@ -1,5 +1,6 @@
 .participant-events-page__grid {
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
 }
 
 .participant-event-card {
@@ -7,15 +8,17 @@
   flex-direction: column;
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 1rem;
+  border-radius: 0.85rem;
   overflow: hidden;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.participant-event-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+@media (hover: hover) {
+  .participant-event-card:hover {
+    border-color: #dbeafe;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.07);
+  }
 }
 
 .participant-event-card__link {
@@ -25,8 +28,8 @@
 }
 
 .participant-event-card__image-wrap {
-  height: 180px;
-  background: linear-gradient(135deg, #eff6ff, #f8fafc);
+  height: 112px;
+  background: #f3f4f6;
 }
 
 .participant-event-card__image,
@@ -44,57 +47,69 @@
 }
 
 .participant-event-card__body {
-  padding: 1.25rem;
+  padding: 0.85rem 0.9rem 0.65rem;
 }
 
 .participant-event-card__category {
   display: inline-block;
-  margin-bottom: 0.5rem;
-  padding: 0.25rem 0.65rem;
+  margin-bottom: 0.35rem;
+  padding: 0.12rem 0.45rem;
   border-radius: 999px;
   background: #eff6ff;
   color: #2563eb;
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
 .participant-event-card__title {
-  margin: 0 0 0.85rem;
-  font-size: 1.2rem;
+  margin: 0 0 0.55rem;
+  font-size: 1rem;
   font-weight: 700;
+  line-height: 1.3;
   color: #111827;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .participant-event-card__meta {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-  margin-bottom: 1rem;
+  gap: 0.3rem;
+  margin-bottom: 0.55rem;
 }
 
 .participant-event-card__meta p {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   margin: 0;
   color: #6b7280;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
+  min-width: 0;
+}
+
+.participant-event-card__meta p span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .participant-event-card__stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-  padding: 0.85rem;
+  gap: 0.45rem;
+  padding: 0.5rem 0.55rem;
   background: #f9fafb;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
 }
 
 .participant-event-card__stat-label {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.62rem;
   color: #6b7280;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -102,22 +117,22 @@
 
 .participant-event-card__stat-value {
   display: block;
-  margin-top: 0.15rem;
-  font-size: 1.1rem;
+  margin-top: 0.05rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: #111827;
 }
 
 .participant-event-card__footer {
-  padding: 0 1.25rem 1.25rem;
+  padding: 0 0.9rem 0.9rem;
 }
 
 .participant-event-card__btn {
   width: 100%;
-  padding: 0.8rem 1rem;
+  padding: 0.45rem 0.55rem;
   border: none;
-  border-radius: 0.75rem;
-  font-size: 0.95rem;
+  border-radius: 0.5rem;
+  font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
 }
@@ -322,6 +337,32 @@
   color: #2563eb;
   text-decoration: none;
   font-weight: 500;
+}
+
+.my-events-page .events-page__create-btn {
+  padding: 0.5rem 0.85rem;
+  font-size: 0.82rem;
+  border-radius: 0.6rem;
+}
+
+.my-events-page .events-page__empty {
+  min-height: 180px;
+  padding: 1.25rem;
+  gap: 0.5rem;
+  border-radius: 0.85rem;
+}
+
+.my-events-page .events-page__empty-icon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.my-events-page .events-page__empty h2 {
+  font-size: 1rem;
+}
+
+.my-events-page .events-page__empty p {
+  font-size: 0.85rem;
 }
 
 .my-events-page__list {
@@ -578,6 +619,10 @@
 }
 
 @media (max-width: 900px) {
+  .participant-events-page__grid {
+    grid-template-columns: 1fr;
+  }
+
   .event-details-page__layout {
     grid-template-columns: 1fr;
   }
